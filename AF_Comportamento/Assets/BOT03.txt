@@ -1,0 +1,27 @@
+tree("Root")
+	parallel
+		repeat mute tree("Patrol")
+		repeat mute tree("Dead")
+		repeat mute tree("TriggerArea")
+
+tree("Patrol")
+	fallback
+		while CheckHealth(100.0)
+			fallback
+				tree("Wander")
+
+tree("TriggerArea")
+	sequence
+		DamageOrHeal
+		Wait(0.7)
+
+tree("Dead")
+	sequence
+		CheckHealth(0.1)
+		Die
+
+tree("Wander")
+	sequence
+		PickRandomDestination
+		MoveToDestination
+

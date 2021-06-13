@@ -1,0 +1,38 @@
+tree("Root")
+	parallel
+		repeat mute tree("Patrol")
+		repeat mute tree("Dead")
+		repeat mute tree("Teleport")
+
+tree("Patrol")
+	fallback
+		tree("Attack")
+		while CheckHealth(200.0)
+			fallback
+				tree("Wander")
+
+tree("Attack")
+	while SeePlayer
+		sequence
+			TargetPlayer
+			LookAtTarget
+			Fire
+			Wait(0.01)
+
+tree("Teleport")
+	sequence
+		CheckHealth(3.0)
+		CanTeleport
+		GoToSafeArea
+		FuryMode
+
+tree("Dead")
+	sequence
+		CheckHealth(0.1)
+		Die
+
+tree("Wander")
+	sequence
+		PickRandomDestination
+		MoveToDestination
+

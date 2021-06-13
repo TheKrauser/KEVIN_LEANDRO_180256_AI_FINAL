@@ -1,0 +1,31 @@
+tree("Root")
+	parallel
+	//Chama as árvores Patrol e Dead continuamente
+		repeat mute tree("Patrol")
+		repeat mute tree("Dead")
+
+//Chama a Flee quando puder e a Wanedr caso a vida for menor que 100
+tree("Patrol")
+	fallback
+		tree("Flee")
+		while CheckHealth(100.0)
+			fallback
+				tree("Wander")
+
+//Se pode ver o player, fuja
+tree("Flee")
+	while SeePlayer
+		Fugir
+
+//Se a vida for menor que 0.1, destroi o bot
+tree("Dead")
+	sequence
+		CheckHealth(0.1)
+		Die
+
+//Pega um destino aleatório dentro de 100 unidades e move para lá
+tree("Wander")
+	sequence
+		PickRandomDestination
+		MoveToDestination
+

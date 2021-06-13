@@ -1,0 +1,54 @@
+tree("Root")
+	parallel
+		repeat mute tree("Patrol")
+		repeat mute tree("Dead")
+		repeat mute tree("Destruct")
+
+tree("Patrol")
+	fallback
+		tree("Perseguir")
+		while CheckHealth(100.0)
+			fallback
+				tree("Look")
+
+tree("Attack")
+	while SeePlayer
+		sequence
+			TargetPlayer
+			LookAtTarget
+
+tree("Perseguir")
+	while SeePlayer
+		Chase
+
+tree("Destruct")
+	sequence
+		CheckDistance(1.0)
+		SelfDestruct
+
+tree("Dead")
+	sequence
+		CheckHealth(0.1)
+		Die
+
+tree("Wander")
+	sequence
+		PickRandomDestination
+		MoveToDestination
+
+tree("Look")
+	sequence
+		Turn(90.0)
+		LookAtTarget
+		Wait(0.2)
+		Turn(180.0)
+		LookAtTarget
+		Wait(0.2)
+		Turn(270.0)
+		LookAtTarget
+		Wait(0.2)
+		Turn(0.0)
+		LookAtTarget
+		Wait(0.2)
+
+
